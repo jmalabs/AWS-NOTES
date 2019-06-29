@@ -1,2 +1,41 @@
 IAM - Identity and Access Management.
-User created has no permission by default.
+IAM User created has no permission by default. permanent access/long live credentials.
+
+IAM Roles - virtual user. temporary access.
+
+
+IAM User has limit of 5000 users.
+
+IAM Group - logical grouping of user which makes the user administration easy.
+
+
+IAM User Access Types: 
+	1. Programmatic acces - enables access ID and secret key for development tools.
+	2. AWS Management Console access - enables password that allows user access the AWS Management Console.
+	
+	
+** Least privillege access is the IAM best practice.
+** Give the minimum permission to the user to do his job.
+** When creating a user, forcing a user to change his password on the next login is a best practice.
+
+
+3 options when assigning permission to the newly created user:
+	1. Add user to the groutp.
+	2. Copy permission from the existing user.
+	3. Attach existing policies directly.
+
+*** Secret access key can only be seen during the user creation.
+*** If ther secret access key lost it. You can deactivate and generate a new access key.
+
+
+ARN - Amazon Resource Name
+
+
+***** PASSWORD POLICY ******
+
+1. force the user to change frequently.
+	- Password expiration period. (90 days).
+
+2. No access key ID and secrect key admnistration.
+3. Password policy applies to all.
+4. For specific rule you have to attach it directly to group or user.
