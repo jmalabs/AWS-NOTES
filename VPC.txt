@@ -140,3 +140,39 @@ IP Subnetting
 16 - subnets
 20148 - hosts
 172.31.0.0/20
+
+10.0.0.0/24
+11111111.1111111.11111111.00000000
+172.31.0.0/17
+11111111.1111111.10000000.00000000
+
+-------------------------------------------------------
+VPC Types
+
+1. Default VPC
+	- Created in each AWS region when AWS account is created.
+	- Has default CIDR ,security group, N ACL, and route tables settings.
+	- Has internet gateway by default.
+2. Custom VPC
+	-Is a VPC creatd by the account owner.
+	- AWS user creating VPC can decide the CIDR block.
+	- Same with default VPC, Custom VPC has default security group, N ACL and route tables.
+	- Does not have a IG by default. You have to create IG if you want your VPC communicates with Web.
+	
+	
+------------------------------------------------------------
+Security Groups
+ - Virtual Firewall
+ - Line of defense
+ - Functions at the ENI level.
+ 
+ 
+ - is a virtual firewall.
+ - it controls traffic at the virtual server (EC2 instance) level
+	- Specifically at the ENI or virtual Network Interface level.
+ - Up to 5 security groups per EC2 instance can be applied.
+ - Stateful - return traffic of allowed inbound traffic is allowed even if there is no rule allowing it.
+ - Can only permits rules, cannot have deny rules.
+ - Implicit deny rule at the end.
+ - Security groups are associated with Ec2 instances network interface.
+ - All rules are evaluated to find permit rule. If no rule that permits it will hit the implicit deny rule.
