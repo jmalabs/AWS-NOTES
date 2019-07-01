@@ -1,0 +1,133 @@
+Virtual Private Cloud.
+
+VPC - Virtual environment for user.
+	- Virtually dedicated t
+	- You cannot talk to other VPC in the cloud unless there's an agreement.
+	- It allows only what you are allowing.
+	- By default VPC cannot talk to the other VPC.
+	
+*** VPC is region specific.
+	
+AWS
+ ---> Region
+	---> VPC
+		---> Availabity Zone
+		
+*** VPC can extend to multiple AZ using subnets.
+
+*** Subnet CANNOT extend to multiple AZ.
+
+
+VPC 
+ - Is a virtual network or data center inside AWS for one client,
+	or a department in an enterprise or just a test environment.
+
+ - The AWS client has full control over resources and virtual servers hosted in AWS
+ 
+ - Is similar to having your own data center inside AWS.
+ 
+ - Logically isolated from other VPC's on AWS.
+ 
+ - You can have one or more IP address subnets in VPC.	
+ 
+ 
+ *** A VPC is confined to an AWS region and cannot extend between regions. (Region Specific)
+ 
+ 
+ VPC Components:
+ 
+ 1. CIDR and IP address subnets (RFC 1918)
+ 2. Implied router - used to commuicated by other subnets. Created by default.
+ 3. Route tables - Destination/Target.
+ 4. Internet gateway - used to commmunicate outside VPC.
+ 5. Security Groups - Virtual firwall. Proctect EC2 instances. Last defense in VPC.
+ 6. Network Access COntrol List (N. ACLs) - first line of defense. Work at subnet level.
+ 7. Virtual Private Gateway - used to connect to your headquarters.
+ 
+ 
+ IPv6 - all addresses are Public.
+ 
+ --------------------------------------------------------------------
+ 
+ Implied Router
+  - it connects your subnets.
+  - central VPC routing function.
+  
+ Each subnet has its own route table.
+ 
+ Route tables - contains the routing rule records.
+ 
+ - Main Route Table - created by default.
+ - Custom Route Table - created by user.
+ 
+ *** You can have up to 200 route tables per VPC.
+ *** You can have up to 50 route entries per route table.
+ *** Each Subnet MUST be associated with only one route table at any given time.
+ *** If you dont specify a subnet-to-route association, the subnet (when created) will be associated with the main (default) VPC route table.
+ 
+ 
+ *** You can change the subnet association to another route table.
+ 
+ *** You can also edit the main (default) route table if you need. you cannot delete the main route table.
+  - You can update the flag to swap MAIN route table.
+  
+ **** EVERY ROUTE TABLE IN A VPC COMES WITH A DEFAULT RULE THAT ALLOWS ALL VPC SUBNETS TO COMMUNICATE WITH ONE ANOTHER.
+  - YOU CANNOT MODIFY OR DELETE THIS RULE.
+ 
+ **** If there's a question regarding Subnet communication, don't even look at the route table configuration because by defaulet there's a default rule that allow subnets to communicate with one another.
+    - Possible issues are the Security and N ACLS.
+	
+------------------------------------------------------------------------
+IP ADDRESSING
+
+RFC 1918 (Public routable)
+
+**** Once the VPC is created, you cannot change its CIDR block.
+/28 - minimum size of the CIDR block. 4^2
+/32 - maximum size of the CIDR block. 16^2
+
+**** If you need a different size you have to create new VPC.
+**** The different subnets within a VPC cannot overlap(basic TCP/IP rule).
+
+*** YOU CANNOT RESIZE THE CIDR YOU HAVE CREATE, HOWEVER YOU CAN EXPAND IT. BY CREATING SECONDARY CIDR.
+ 
+ 
+**** RESERVER IPs******
+
+First 4 and Last IP are reserved.
+1. Ex. If the subnet is 10.0.0.0/24
+Meaning you have /24 for the network and /8 for the host.
+	- 10.0.0.0 is the base network
+	- 10.0.0.1 VPC router
+	- 10.0.0.2 DNS related.
+	- 10.0.0.3 Reserved for future use.
+	- 10.0.0.255 last IP.
+	
+2. Ex. If the subnet is 10.0.0.0/25
+Meaning you have /25 for the network and /7 for the host.
+	- 10.0.0.0 is the base network
+	- 10.0.0.1 VPC router
+	- 10.0.0.2 DNS related.
+	- 10.0.0.3 Reserved for future use.
+	- 10.0.0.127 last IP.
+	
+	
+------------------------------------------
+Internet Gateway
+- IG is created by default when VPC is created.
+- is the gateway through which your VPCcommunicates with the internet, and with other  AWS services.
+
+- Is a horizontally scaled, redundant, and highly available component.
+	* If there's a question regarding perfomance or slowness dont even look at the Internet Gateway because IG is completely provisioned by AWS.
+- One IG per VPC.
+
+- performs NAT between your private and public IPV4 addresses.
+
+--------------------------------------------
+Public Vs Private Subnet.
+
+RFC 1918 
+ - Private IP addresses
+ 1. 10.0.0.0
+ 2. 172.16.0.0
+ 3. 192.168.0.0
